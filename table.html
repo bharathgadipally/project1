@@ -87,6 +87,11 @@
         var table = tableCell.parentNode.parentNode;
         var df = table.insertRow(1);
         df.innerHTML = row.innerHTML;
+        for(var f = 0; f < df.cells.length;f++){
+            df.cells[f].onclick = function(e){
+                tableText(this);
+            };
+        }
         table.deleteRow(row.rowIndex);
        }
     }
