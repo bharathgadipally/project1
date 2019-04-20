@@ -1,6 +1,10 @@
 <html>
 <head>
     <style>
+        .pin{
+          height: 10 px;
+          width: 10px;  
+        }
         #myInput {
         background-image: url('/css/searchicon.png'); /* Add a search icon to input */
         background-position: 10px 12px; /* Position the search icon */
@@ -36,31 +40,56 @@
     </style>
 </head>
 <body>
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
     <table id="myTable">
     <tr class="header">
+        <th style="width:20%;" onclick="sortTable(0)">#</th>
         <th style="width:60%;" onclick="sortTable(0)">Name</th>
         <th style="width:40%;" onclick="sortTable(0)">Country</th>
     </tr>
     <tr>
+        <td><img src="pin-icon.png" class="pin"/></td>
         <td>Alfreds Futterkiste</td>
         <td>Germany</td>
     </tr>
     <tr>
+        <td><img src="pin-icon.png" class="pin"/></td>
         <td>Berglunds snabbkop</td>
         <td>Sweden</td>
     </tr>
     <tr>
+            <td><img src="pin-icon.png" class="pin"/></td>
+
         <td>Island Trading</td>
         <td>UK</td>
     </tr>
     <tr>
+            <td><img src="pin-icon.png" class="pin"/></td>
+
         <td>Koniglich Essen</td>
         <td>Germany</td>
     </tr>
     </table>
 
     <script>
+    var table = document.getElementById("myTable");
+    if (table != null) {
+        for (var i = 0; i < table.rows.length; i++) {
+            for (var j = 0; j < table.rows[i].cells.length; j++)
+            table.rows[i].cells[j].onclick = function () {
+                tableText(this);
+            };
+        }
+    }
+
+    function tableText(tableCell) {
+       if(tableCell.cellIndex == 0){
+        var row = tableCell.parentNode;
+        var table = tableCell.parentNode.parentNode;
+        var df = table.insertRow(1);
+        df.innerHTML = row.innerHTML;
+        table.deleteRow(row.rowIndex);
+       }
+    }
 
 function sortTable(n) {
         var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
@@ -116,27 +145,7 @@ function sortTable(n) {
             }
         }
         }
-            function myFunction() {
-              // Declare variables 
-              var input, filter, table, tr, td, i, txtValue;
-              input = document.getElementById("myInput");
-              filter = input.value.toUpperCase();
-              table = document.getElementById("myTable");
-              tr = table.getElementsByTagName("tr");
-            
-              // Loop through all table rows, and hide those who don't match the search query
-              for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[0];
-                if (td) {
-                  txtValue = td.textContent || td.innerText;
-                  if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                  } else {
-                    tr[i].style.display = "none";
-                  }
-                } 
-              }
-            }
+
     </script>
 </body>
 </html>
